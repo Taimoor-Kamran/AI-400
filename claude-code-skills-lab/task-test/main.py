@@ -1,6 +1,8 @@
-def main():
-    print("Hello from task-test!")
+from fastapi import FastAPI
 
+app = FastAPI()
 
-if __name__ == "__main__":
-    main()
+@app.get("/todo")
+def todo() -> list[dict[str, int | int]]:
+    return [{"id": 1, "task" : "Buy groceries"},
+            {"id": 2, "task" : "Read a book"}]
