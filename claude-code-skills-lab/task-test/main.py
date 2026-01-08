@@ -1,17 +1,16 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="FastAPI Hello World")
-
-@app.get("/")
-def read_todo():
-    """Root endpoint returning a Hello World message."""
-    return {"message": "Hello World"}
-
-@app.get("/health")
-def hello_check():
-    """Health check endpoint"""
-    return {"status": "healthy"}
-
-if __name__ == "__main__":
-    import uvicron
-    uvicron.run(app, host="0.0.0.0", port=8000)
+app = FastAPI()
+@app.get("/tasks")
+def todo() -> list[dict[str, int | str]]:
+    return [{"id": 1, "task": "Buy groceries"},
+            {"id": 2, "task": "Read a book"}]
+    
+@app.get("/tasks/{task_id}")
+async def todo_one(task_id: int = 1, include_details: bool = False) -> dict[str, int | str]:
+    if task_id < 1:
+        return {"error" : "Task ID must be gerater than 0"}
+    if include_details:
+        return {"id" : task_id, "task": "Buy groceries", "details": "Buy groceries for the week"}
+    return {"id" : task_id, "task": "Buy groceries"}
+ 
