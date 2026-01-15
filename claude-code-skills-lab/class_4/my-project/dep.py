@@ -2,9 +2,13 @@ from fastapi import FastAPI, Depends
 
 app = FastAPI()
 
+def get_config():
+    return {"app": "taskapi", "storage": "in-memory"}
+
 @app.get("/hello")
-def hello():
-    return {"message": "Hello, World!"}
+def hello(config: dict = Depends(get_config)):
+    # config = get_config()
+    return {"message": "all good", "app-name": config["app"]}
 
 import tempfile
 import os
