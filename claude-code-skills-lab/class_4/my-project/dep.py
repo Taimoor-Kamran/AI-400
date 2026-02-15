@@ -4,9 +4,14 @@ from fastapi import FastAPI, Depends
 
 app = FastAPI()
 
+def get_config():
+    return {"app": "taskapi", "storage": "in-memory"}
+
+
 @app.get("/hello")
 def hello():
     return {"message" : "all good"}
+
 
 # def get_temp_file():
 #     """Provide a temporary file that gets cleaned up."""    
