@@ -10,7 +10,8 @@ def get_config():
 
 @app.get("/hello")
 def hello():
-    return {"message" : "all good"}
+    config = get_config()
+    return {"message" : "all good", "app-name": config["app"]}
 
 
 # def get_temp_file():
