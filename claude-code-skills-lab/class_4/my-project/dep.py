@@ -3,7 +3,9 @@ from dotenv import load_dotenv
 import os
 app = FastAPI()
 
+load_dotenv()
 
+GEMINI_API_KEY=os.getenv("GEMINI_API_KEY")
 
 def get_config():
     print("\n CONFIG FUNC: 1")
