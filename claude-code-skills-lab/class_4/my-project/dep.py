@@ -5,11 +5,10 @@ app = FastAPI()
 
 load_dotenv()
 
-GEMINI_API_KEY=os.getenv("GEMINI_API_KEY")
 
 def get_config():
     print("\n CONFIG FUNC: 1")
-    return {"app": "taskapi", "storage": "in-memory"}
+    return {"app": "taskapi", "gemini-key": os.getenv("GEMINI_API_KEY")}
 
 @app.get("/hello")
 def hello(config: dict = Depends(get_config)):
