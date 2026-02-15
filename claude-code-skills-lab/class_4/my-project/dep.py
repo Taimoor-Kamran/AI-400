@@ -1,6 +1,9 @@
 from fastapi import FastAPI, Depends
 from dotenv import load_dotenv
+import os
 app = FastAPI()
+
+
 
 def get_config():
     print("\n CONFIG FUNC: 1")
