@@ -30,6 +30,6 @@ def get_temp_file():
 
 
 @app.post("/upload")
-def process_upload(temp: file = Depends(get_temp_file)):
+def process_upload(temp = Depends(get_temp_file)):
     temp.write("data")
     return {"status": "processed"}
