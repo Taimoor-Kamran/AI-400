@@ -14,4 +14,4 @@ def get_config():
 def hello(config: dict = Depends(get_config)):
     print("\n NORMAL API FUNC: 1")
     # config = get_config()
-    return {"message" : "all good", "app-name": config["app"]}
+    return {"message" : "all good", "gemini-key": config["gemini-key"]}
