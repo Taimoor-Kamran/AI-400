@@ -9,8 +9,8 @@ def get_config():
 
 
 @app.get("/hello")
-def hello():
-    config = get_config()
+def hello(config: dict = Depends(get_config)):
+    # config = get_config()
     return {"message" : "all good", "app-name": config["app"]}
 
 
