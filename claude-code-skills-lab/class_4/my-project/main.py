@@ -5,7 +5,10 @@ import os
 
 load_env()
 
-engine = create_engine(os.getenv("DB_URL"))
+engine = create_engine(os.getenv("DB_URL"), echo=True)
+
+# How to create Table?
+# How to actually interact with tables?
 
 app = FastAPI()
 
@@ -19,4 +22,8 @@ class Task(SQLModel, table=True):
     
 @app.post("/tasks")
 def create_task(task: Task):
+    return {"message": "all good"}
+
+@app.get("/tasks")
+def get_task(task: Task):
     return {"message": "all good"}
