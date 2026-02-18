@@ -1,5 +1,9 @@
 from fastapi import FastAPI
 from sqlmodel import SQLModel, Field
+from dotenv import load_env
+import os
+
+load_env()
 
 app = FastAPI()
 
