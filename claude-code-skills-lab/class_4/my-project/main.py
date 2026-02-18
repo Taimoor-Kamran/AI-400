@@ -1,29 +1,36 @@
-from fastapi import FastAPI
 from sqlmodel import SQLModel, Field, create_engine, Session
-from dotenv import load_env
+from dotenv import load_dotenv
 import os
 
-load_env()
+load_dotenv()
 
 engine = create_engine(os.getenv("DB_URL"), echo=True)
 
-# How to create Table?
-# How to actually interact with tables?
 
-app = FastAPI()
 
 # DB Structure/Tables + Same used at API level
 class Task(SQLModel, table=True):
      id: int | None = Field(default=None, primary_key=True)
      title: str
      description: str | None = Field(default=None)
+
+# How to create Table?
+def create_tables():
+    print("trying to create table")
+    SQLModel.metadata.create_all(engine)
+    print("Tables Function Completed")
+
+create_tables()
+
+# How to actually interact with tables?
+# app = FastAPI()
     
 # DB Configuration    
     
-@app.post("/tasks")
-def create_task(task: Task):
-    return {"message": "all good"}
+# @app.post("/tasks")
+# def create_task(task: Task):
+#     return {"message": "all good"}
 
-@app.get("/tasks")
-def get_task(task: Task):
-    return {"message": "all good"}
+# @app.get("/tasks")
+# def get_task(task: Task):
+#     return {"message": "all good"}
