@@ -33,7 +33,7 @@ def create_task(task: Task, session: Session = Depends(get_session)):
     return task
 
 @app.get("/tasks")
-def get_task(session: Session = Depends(get_session)):
+def get_tasks(session: Session = Depends(get_session)):
     tasks = session.exec(select(Task)).all()
     return tasks
 
