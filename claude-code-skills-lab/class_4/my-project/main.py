@@ -1,6 +1,6 @@
+import os
 from sqlmodel import SQLModel, Field, create_engine, Session
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
@@ -14,14 +14,6 @@ class Task(SQLModel, table=True):
      title: str
      description: str | None = Field(default=None)
 
-# How to create Table?
-def create_tables():
-    print("trying to create table")
-    SQLModel.metadata.create_all(engine)
-    print("Tables Function Completed")
-
-create_tables()
-
 # How to actually interact with tables?
 # app = FastAPI()
     
@@ -34,3 +26,11 @@ create_tables()
 # @app.get("/tasks")
 # def get_task(task: Task):
 #     return {"message": "all good"}
+
+# How to create Table?
+# def create_tables():
+#     print("trying to create table")
+#     SQLModel.metadata.create_all(engine)
+#     print("Tables Function Completed")
+
+# create_tables()
