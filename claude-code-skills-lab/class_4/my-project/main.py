@@ -37,6 +37,11 @@ def get_tasks(session: Session = Depends(get_session)):
     tasks = session.exec(select(Task)).all()
     return tasks
 
+@app.get("/tasks/{task_id}")
+def get_task(task_id: int, session: Session = Depends(get_session)):
+    task = session.get(Task, task_id)
+    return task
+
 # How to create Table?
 # def create_tables():
 #     print("trying to create table")
