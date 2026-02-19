@@ -1,6 +1,6 @@
 import os
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from sqlmodel import SQLModel, Field, create_engine, Session
 from dotenv import load_dotenv
 
@@ -17,17 +17,22 @@ class Task(SQLModel, table=True):
      description: str | None = Field(default=None)
 
 # How to actually interact with tables?
+
+def get_session():
+    with Session(engine) as session:
+        yield session
+
 app = FastAPI()
     
 # DB Configuration    
     
-# @app.post("/tasks")
-# def create_task(task: Task):
-#     return {"message": "all good"}
+@app.post("/tasks")
+def create_task(task: Task, session: Session = Depends(get_session)):
+    return {"message": "all good"}
 
-# @app.get("/tasks")
-# def get_task(task: Task):
-#     return {"message": "all good"}
+@app.get("/tasks")
+def get_task(task: Task):
+    return {"message": "all good"}
 
 # How to create Table?
 # def create_tables():
