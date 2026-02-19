@@ -34,6 +34,7 @@ def create_task(task: Task, session: Session = Depends(get_session)):
 
 @app.get("/tasks")
 def get_task(session: Session = Depends(get_session)):
+    tasks = session.exec()
     return {"message": "all good"}
 
 # How to create Table?
