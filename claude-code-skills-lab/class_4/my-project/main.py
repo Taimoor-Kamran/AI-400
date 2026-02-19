@@ -1,4 +1,6 @@
 import os
+
+from fastapi import FastAPI
 from sqlmodel import SQLModel, Field, create_engine, Session
 from dotenv import load_dotenv
 
@@ -15,7 +17,7 @@ class Task(SQLModel, table=True):
      description: str | None = Field(default=None)
 
 # How to actually interact with tables?
-# app = FastAPI()
+app = FastAPI()
     
 # DB Configuration    
     
