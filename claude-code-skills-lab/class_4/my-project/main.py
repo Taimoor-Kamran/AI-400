@@ -28,7 +28,9 @@ app = FastAPI()
     
 @app.post("/tasks")
 def create_task(task: Task, session: Session = Depends(get_session)):
-    return {"message": "all good"}
+    session.add(task)
+    session.commit()
+    return task
 
 @app.get("/tasks")
 def get_task(task: Task):
