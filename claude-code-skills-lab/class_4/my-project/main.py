@@ -1,7 +1,7 @@
 import os
 
 from fastapi import FastAPI, Depends
-from sqlmodel import SQLModel, Field, create_engine, Session
+from sqlmodel import SQLModel, Field, create_engine, Session, select
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -34,8 +34,8 @@ def create_task(task: Task, session: Session = Depends(get_session)):
 
 @app.get("/tasks")
 def get_task(session: Session = Depends(get_session)):
-    tasks = session.exec()
-    return {"message": "all good"}
+    tasks = session.exec(select(Task)).all()
+    return tasks
 
 # How to create Table?
 # def create_tables():
