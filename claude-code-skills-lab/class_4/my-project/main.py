@@ -16,6 +16,10 @@ class Task(SQLModel, table=True):
      title: str
      description: str | None = Field(default=None)
 
+# Migration Command
+# SQLModel.metadata.create_all(engine)
+
+
 # How to actually interact with tables?
 
 def get_session():
