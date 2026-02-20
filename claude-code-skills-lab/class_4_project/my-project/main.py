@@ -1,6 +1,10 @@
-def main():
-    print("Hello from my-project!")
+from fastapi import FastAPI
 
+app = FastAPI(
+    title="Task API",
+    description="A simple task management API"
+)
 
-if __name__ == "__main__":
-    main()
+@app.get("/")
+def read_root():
+    return {"message": "Task Api Is Running"}
