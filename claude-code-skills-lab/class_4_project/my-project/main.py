@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from typing import List
 
 app = FastAPI(
     title="Task API",
-    description="A Simple task management API"
+    description="A simple task management API"
 )
 
 class Task(BaseModel):
@@ -12,6 +13,9 @@ class Task(BaseModel):
     description: str
     completed: bool = False
     
-@app.post("/")
-def create_todo():
-    
+tasks: List[Task] = []
+
+@app.post("/tasks")
+def create_task(task: Task):
+    tasks.append(task)
+    return {"message": "Task Created Successfully", "task": task}
