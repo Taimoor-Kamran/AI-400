@@ -1,10 +1,10 @@
 from fastapi import FastAPI, HTTPException
-from typing import List
 from pydantic import BaseModel
+from typing import List
 
 app = FastAPI(
     title="Task API",
-    description="A simple task management API"
+    description="A simple task management api"
 )
 
 # Model
@@ -14,30 +14,30 @@ class Task(BaseModel):
     title: str
     description: str
     completed: bool = False
-
-# Fake Database (In Memory)
+    
+# Fake Databse (In Memory)
     
 tasks: List[Task] = []
-
 
 # Create Task
 
 @app.post("/tasks")
-def create_tasks(task: Task):
+def create_task(task: Task):
     tasks.append(task)
-    return {"message": "Task Created Successfully","task": task}
-    
-# Read All Task    
-    
+    return {"message": "Task created successfully", "task": task}
+
+# Read All Task
+
 @app.get("/tasks")
 def get_tasks():
     return tasks
 
-# Read Single Task 
+# Read Single Task
 
 @app.get("/tasks/{task_id}")
 def get_task(task_id: int):
     for task in tasks:
         if task.id == task_id:
             return task
-        raise HTTPException(status_code=404, details="Task not found")
+        
+    raise HTTPException(status_code=404, detail="Task not found")
