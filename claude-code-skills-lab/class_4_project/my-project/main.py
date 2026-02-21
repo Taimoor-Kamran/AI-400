@@ -1,10 +1,7 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI(
     title="Task API",
-    description="A simple task management API"
+    description="A Simple task management API"
 )
-
-@app.get("/")
-def read_root():
-    return {"message": "Task Api Is Running"}
