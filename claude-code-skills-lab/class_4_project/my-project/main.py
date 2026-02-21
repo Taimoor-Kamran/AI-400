@@ -49,6 +49,25 @@ def update_task(task_id: int, updated_task: Task):
     for index, task in enumerate(tasks):
         if task.id == task_id:
             tasks[index] = updated_task
-            return {"message": "Task updated successfully"}
+            return {"message": "Task Updated Successfully"}
     raise HTTPException(status_code=404, detail="Task not found")    
     
+# Patch (Mark Complete)
+
+@app.patch("/tasks/{task_id}")
+def complete_task(task_id: int):
+    for task in tasks:
+        if task.id == task_id:
+            task.completed = True
+            return {"message": "Task marked as completed"}
+    raise HTTPException(status_code=404, detail="task not found")
+
+# Delete Task
+
+@app.delete("/tasks/{task_id}")
+def delete_task(task_id: int):
+    for index, task in enumerate(tasks):
+        if task.id == task_id:
+            tasks.pop(index)
+            return {"message": "Task deleted successfully"}
+    raise HTTPException(status_code=404, detail="task not found")
