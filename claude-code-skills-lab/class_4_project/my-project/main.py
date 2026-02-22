@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
+from sqlmodel import SQLModel, Field
 
 app = FastAPI(
     title="Task API",
