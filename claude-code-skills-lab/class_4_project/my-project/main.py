@@ -1,7 +1,15 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, create_engine, Session
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+engine = create_engine(os.getenv("DB_URL"), echo=True)
+print(engine)
+print(os.getenv("DB_URL"))
 
 app = FastAPI(
     title="Task API",
@@ -10,8 +18,8 @@ app = FastAPI(
 
 # Model
 
-class Task(BaseModel):
-    id: int
+class Task(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
     title: str
     description: str
     completed: bool = False
