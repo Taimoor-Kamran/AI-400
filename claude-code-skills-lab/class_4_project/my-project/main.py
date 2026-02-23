@@ -95,4 +95,7 @@ def complete_task(task_id: int):
 
 @app.delete("/tasks/{task_id}")
 def delete_task(task_id: int):
-    
+    with Session(engine) as session:
+        task = session.get(Task, task_id)
+        if not task:
+            raise HTTPException(status_code=404)
