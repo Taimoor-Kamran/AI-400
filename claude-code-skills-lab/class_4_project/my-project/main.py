@@ -102,3 +102,4 @@ def delete_task(task_id: int):
         
         session.delete(task)
         session.commit()
+        return {"message": "Task deleted successfully"}
