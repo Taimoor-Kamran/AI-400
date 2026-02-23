@@ -51,33 +51,48 @@ def get_tasks():
 
 @app.get("/tasks/{task_id}")
 def get_task(task_id: int):
+    with Session(engine) as session:
+        task = session.get(Task, task_id)
+        if not task:
+            raise HTTPException(status_code=404, detail="Task not found")
+        return task
+    
     
 # Update Task
 
 @app.put("/tasks/{task_id}")
 def update_task(task_id: int, updated_task: Task):
-    for index, task in enumerate(tasks):
-        if task.id == task_id:
-            tasks[index] = updated_task
-            return {"message": "Task Updated Successfully"}
-    raise HTTPException(status_code=404, detail="Task not found")    
+    with Session(engine) as session:
+        task = session.get(Task, task_id)
+        if not task:
+            raise HTTPException(status_code=404, detail="Task not found")
+        
+        task.title = updated_task.title
+        task.description = updated_task.description
+        task.completed = updated_task.completed
+        
+        session.add(task)
+        session.commit()
+        session.refresh(task)
+        return task
+        
     
 # Patch (Mark Complete)
 
 @app.patch("/tasks/{task_id}")
 def complete_task(task_id: int):
-    for task in tasks:
-        if task.id == task_id:
-            task.completed = True
-            return {"message": "Task marked as completed"}
-    raise HTTPException(status_code=404, detail="task not found")
-
+    with Session(engine) as session:
+        task = session.get(Task, task_id)
+        if not task:
+            raise HTTPException(status_code=404, detail="Task not found")
+    
+        task.completed = True
+        task.commit()
+        task.refresh()
+        return task 
+    
 # Delete Task
 
 @app.delete("/tasks/{task_id}")
 def delete_task(task_id: int):
-    for index, task in enumerate(tasks):
-        if task.id == task_id:
-            tasks.pop(index)
-            return {"message": "Task deleted successfully"}
-    raise HTTPException(status_code=404, detail="task not found")
+    
