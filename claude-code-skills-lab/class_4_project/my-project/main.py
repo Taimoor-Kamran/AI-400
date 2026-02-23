@@ -98,4 +98,7 @@ def delete_task(task_id: int):
     with Session(engine) as session:
         task = session.get(Task, task_id)
         if not task:
-            raise HTTPException(status_code=404)
+            raise HTTPException(status_code=404, detail="Task not found")
+        
+        session.delete(task)
+        session.commit()
