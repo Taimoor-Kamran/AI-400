@@ -23,17 +23,22 @@ class Task(SQLModel, table=True):
     title: str
     description: str
     completed: bool = False
-    
-# Fake Databse (In Memory)
-    
-tasks: List[Task] = []
+
+# Create Table
+
+@app.on_event("startup")
+def on_startup():
+    SQLModel.metadata.create_all(engine)
 
 # Create Task
 
 @app.post("/tasks")
 def create_task(task: Task):
-    tasks.append(task)
-    return {"message": "Task created successfully", "task": task}
+    with Session(engine) as session:
+        session.add(task)
+        session.commit()
+        session.refresh(task)
+        return task
 
 # Read All Task
 
