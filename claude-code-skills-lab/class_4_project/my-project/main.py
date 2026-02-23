@@ -1,7 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import List
-from sqlmodel import SQLModel, Field, create_engine, Session
+from sqlmodel import SQLModel, Field, create_engine, Session, select
 import os
 from dotenv import load_dotenv
 
@@ -44,18 +42,16 @@ def create_task(task: Task):
 
 @app.get("/tasks")
 def get_tasks():
-    return tasks
+    with Session(engine) as session:
+        tasks = session.exec(select(Task)).all()
+        return tasks
+        
 
 # Read Single Task
 
 @app.get("/tasks/{task_id}")
 def get_task(task_id: int):
-    for task in tasks:
-        if task.id == task_id:
-            return task
-        
-    raise HTTPException(status_code=404, detail="Task not found")
-
+    
 # Update Task
 
 @app.put("/tasks/{task_id}")
