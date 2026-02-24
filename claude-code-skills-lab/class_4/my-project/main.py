@@ -1,8 +1,8 @@
-import os
 
 from fastapi import FastAPI, Depends
 from sqlmodel import SQLModel, Field, create_engine, Session, select
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
