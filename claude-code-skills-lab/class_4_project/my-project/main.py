@@ -29,6 +29,7 @@ def get_session():
 
 # Create Table
 
+
 def create_table():
     SQLModel.metadata.create_all(engine)
 
