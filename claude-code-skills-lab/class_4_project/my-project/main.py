@@ -39,6 +39,7 @@ create_table()
 
 
 
+
 @app.post("/tasks")
 def add_task(task : Task, session: Session = Depends(get_session)):
         session.add(task)
