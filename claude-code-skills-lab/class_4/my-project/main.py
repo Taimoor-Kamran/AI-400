@@ -10,6 +10,7 @@ engine = create_engine(os.getenv("DB_URL"), echo=True)
 
 
 
+
 # DB Structure/Tables + Same used at API level
 class Task(SQLModel, table=True):
      id: int | None = Field(default=None, primary_key=True)
@@ -27,9 +28,9 @@ def get_session():
         yield session
 
 app = FastAPI()
-    
-# DB Configuration    
-    
+
+# DB Configuration
+
 @app.post("/tasks")
 def create_task(task: Task, session: Session = Depends(get_session)):
     session.add(task)
