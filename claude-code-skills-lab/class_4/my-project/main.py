@@ -8,9 +8,6 @@ load_dotenv()
 
 engine = create_engine(os.getenv("DB_URL"), echo=True)
 
-
-
-
 # DB Structure/Tables + Same used at API level
 class Task(SQLModel, table=True):
      id: int | None = Field(default=None, primary_key=True)
