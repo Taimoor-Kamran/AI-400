@@ -4,6 +4,7 @@ from typing_extensions import Dict
 
 app = FastAPI(title="FastAPI Hello World")
 
+
 class todoItem(BaseModel):
     id: int
     task: str
