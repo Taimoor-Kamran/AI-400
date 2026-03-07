@@ -8,7 +8,8 @@ load_dotenv()
 
 engine = create_engine(os.getenv("DB_URL"), echo=True)
 
-class User():
+class User(SQLModel, table=true):
+    
 
 # Migration Command
 # SQLModel.metadata.create_all(engine)
