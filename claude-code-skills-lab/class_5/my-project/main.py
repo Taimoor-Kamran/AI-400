@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-engine = create_engine(os.getenv("DB_URL"), echo=True)
+# engine = create_engine(os.getenv("DB_URL"), echo=True)
 
-class User(SQLModel, table=true):
+class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str | None = Field(default=None)
     email: str
