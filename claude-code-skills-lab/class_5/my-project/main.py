@@ -8,6 +8,8 @@ load_dotenv()
 
 engine = create_engine(os.getenv("DB_URL"), echo=True)
 
+class User():
+
 # Migration Command
 # SQLModel.metadata.create_all(engine)
 
@@ -20,3 +22,4 @@ def get_session():
 
 app = FastAPI()
 
+ 
