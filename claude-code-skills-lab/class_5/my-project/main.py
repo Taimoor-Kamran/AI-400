@@ -29,4 +29,4 @@ app = FastAPI()
 # Create User
 @app.post("/users")
 def create_user(user: User, session: Session = Depends(get_session)):
-    
+    session.add(user)
