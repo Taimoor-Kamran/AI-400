@@ -12,6 +12,7 @@ class User(SQLModel, table=true):
     id: int | None = Field(default=None, primary_key=True)
     name: str | None = Field(default=None)
     email: str
+    password: str
 
 # Migration Command
 # SQLModel.metadata.create_all(engine)
