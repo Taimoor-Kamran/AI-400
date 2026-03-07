@@ -26,4 +26,4 @@ def get_session():
 
 app = FastAPI()
 
- 
+# Create User
