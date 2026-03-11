@@ -13,6 +13,6 @@ print(hash_password("saqlain_345"))
 print(hash_password("yousuf_345"))
 
 
-# def verify_password(plain_password: str, hashed_password: str) -> bool:
-#     """Verify a password against its hash."""
-#     return password_hash.verify(plain_password, hashed_password)
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Verify a password against its hash."""
+    return password_hash.verify(plain_password, hashed_password)
