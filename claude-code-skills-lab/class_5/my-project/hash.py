@@ -13,4 +13,5 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a password against its hash."""
     return password_hash.verify(plain_password, hashed_password)
 
+
 print(verify_password("taimoor_345", "$argon2id$v=19$m=65536,t=3,p=4$kSTBST0l7eNB2h3iZQfsjw$suALsL5D8carO4PtHWCYuerDQc6s/cy2OgIpnO2elMQ"))
