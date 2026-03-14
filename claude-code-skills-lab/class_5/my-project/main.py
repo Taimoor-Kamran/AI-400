@@ -21,7 +21,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 load_dotenv()
 
-# engine = create_engine(os.getenv("DB_URL"), echo=True)
+engine = create_engine(os.getenv("DB_URL"), echo=True)
 
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -51,3 +51,12 @@ def create_user(user: User, session: Session = Depends(get_session)):
     session.commit()
     session.refresh(user)
     return {"message": "User created successfully"}
+
+# How to create Table?
+
+def create_tables():
+    print("Trying to create table")
+    SQLModel.metadata.create_all(engine)
+    print("Table Function Completed")
+    
+create_tables()
