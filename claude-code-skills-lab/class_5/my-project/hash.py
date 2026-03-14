@@ -1,16 +1,22 @@
-from pwdlib import PasswordHash
-from pwdlib.hashers.argon2 import Argon2Hasher
+from datetime import datetime, timedelta
+from typing import Optional
+from jose import jwt, JWTError
+from config import get_settings
 
-password_hash = PasswordHash((Argon2Hasher(),))
-
-
-def hash_password(password: str) -> str:
-    """Hash a password with Argon2."""
-    return password_hash.hash(password)
+settings = get_settings()
 
 
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verify a password against its hash."""
-    return password_hash.verify(plain_password, hashed_password)
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
+    """Create a signed JWT token."""
+    to_encode = data.copy()
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=15))
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, settings.secret_key, algorithm=settings.algorithm)
 
-print(verify_password("taimoor_345", "$argon2id$v=19$m=65536,t=3,p=4$kSTBST0l7eNB2h3iZQfsjw$suALsL5D8carO4PtHWCYuerDQc6s/cy2OgIpnO2elMQ"))
+
+def decode_token(token: str) -> Optional[dict]:
+    """Decode and validate a JWT token."""
+    try:
+        return jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
+    except JWTError:
+        return None
