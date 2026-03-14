@@ -44,7 +44,8 @@ app = FastAPI()
 # Create User
 @app.post("/users")
 def create_user(user: User, session: Session = Depends(get_session)):
+    user.password = hash_password(user.password)
     session.add(user)
     session.commit()
     session.refresh(user)
-    return user
+    return {"message": "User created successfully"}
