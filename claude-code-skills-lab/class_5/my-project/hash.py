@@ -22,3 +22,5 @@ def decode_token(token: str) -> Optional[dict]:
         return None
     
 token = create_access_token({"sub": "junaid@gmail.com"})
+print("\n[+] Token: ", token)
+print("\n[+] Decoded Token: ", decode_token(token))
