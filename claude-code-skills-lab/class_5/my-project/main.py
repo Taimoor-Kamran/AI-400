@@ -1,6 +1,6 @@
 
 import os
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlmodel import SQLModel, Field, create_engine, Session, select
 from dotenv import load_dotenv
 from pwdlib import PasswordHash
@@ -44,6 +44,8 @@ app = FastAPI()
 # Create User
 @app.post("/users")
 def create_user(user: User, session: Session = Depends(get_session)):
+    if session.exec(select(User).where(User.email == user.email)).first():
+        raise HTTPException(status_code=400, detail="User already exists")
     user.password = hash_password(user.password)
     session.add(user)
     session.commit()
