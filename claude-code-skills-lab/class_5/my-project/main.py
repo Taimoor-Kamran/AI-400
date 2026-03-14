@@ -44,7 +44,7 @@ app = FastAPI()
 # Create User
 @app.post("/users")
 def create_user(user: User, session: Session = Depends(get_session)):
-    if session.exec(select(User).where(User.email == user.email)).first():
+    if session.exec(select(User).where(User.email == User.email)).first():
         raise HTTPException(status_code=400, detail="User already exists")
     user.password = hash_password(user.password)
     session.add(user)
