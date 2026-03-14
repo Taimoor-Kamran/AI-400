@@ -54,9 +54,9 @@ def create_user(user: User, session: Session = Depends(get_session)):
 
 # How to create Table?
 
-def create_tables():
-    print("Trying to create table")
-    SQLModel.metadata.create_all(engine)
-    print("Table Function Completed")
+# def create_tables():
+#     print("Trying to create table")
+#     SQLModel.metadata.create_all(engine)
+#     print("Table Function Completed")
     
-create_tables()
+# create_tables()
