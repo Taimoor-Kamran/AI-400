@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import jwt, JWTError
-from config import get_settings
+
+
 
 settings = get_settings()
 
