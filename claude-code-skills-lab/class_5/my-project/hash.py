@@ -5,8 +5,6 @@ from jose import jwt, JWTError
 SECRET_KEY="SOME_RANDOM_SECRET_KEY"
 ALGORITHM="HS256"
 
-settings = get_settings()
-
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """Create a signed JWT token."""
@@ -22,3 +20,5 @@ def decode_token(token: str) -> Optional[dict]:
         return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
     except JWTError:
         return None
+    
+token = create_access_token({"sub": "junaid@gmail.com"})
